@@ -7,6 +7,8 @@ export default function SideBar(props) {
     setHeader,
     button,
     setButton,
+    image,
+    setImage,
   } = props;
 
   return (
@@ -29,7 +31,11 @@ export default function SideBar(props) {
                     <label>header text</label>
                     <input
                       key={elementItem.key}
-                      value={header.headerContent}
+                      value={
+                        Object.values(header).length > 0
+                          ? header.headerContent
+                          : ""
+                      }
                       onClick={() => {
                         setCurrentElement({
                           key: elementItem.key,
@@ -45,6 +51,36 @@ export default function SideBar(props) {
                             originType: elementItem.originType,
                             headerContent: e.target.value,
                             style: elementItem.style,
+                          };
+                          setHeader(headerData);
+                        }
+                      }}
+                    />
+                    <label>header text color</label>
+                    <input
+                      key={elementItem.key}
+                      value={
+                        Object.values(header).length > 0
+                          ? header.style.color
+                          : ""
+                      }
+                      onClick={() => {
+                        setCurrentElement({
+                          key: elementItem.key,
+                          type: elementItem.type,
+                        });
+                      }}
+                      onChange={(e) => {
+                        if (elementItem.key === currentElement.key) {
+                          const headerData = {
+                            key: elementItem.key,
+                            type: elementItem.type,
+                            origin: elementItem.origin,
+                            originType: elementItem.originType,
+                            headerContent: elementItem.headerContent,
+                            style: {
+                              color: e.target.value,
+                            },
                           };
                           setHeader(headerData);
                         }
@@ -70,7 +106,11 @@ export default function SideBar(props) {
                     <label>button name</label>
                     <input
                       key={elementItem.key}
-                      value={button.buttonName}
+                      value={
+                        Object.values(button).length > 0
+                          ? button.buttonName
+                          : ""
+                      }
                       onClick={() => {
                         setCurrentElement({
                           key: elementItem.key,
@@ -94,7 +134,9 @@ export default function SideBar(props) {
                     <label>button url</label>
                     <input
                       key={elementItem.key}
-                      value={elementItem.buttonUrl}
+                      value={
+                        Object.values(button).length > 0 ? button.buttonUrl : ""
+                      }
                       onClick={() => {
                         setCurrentElement({
                           key: elementItem.key,
@@ -121,7 +163,30 @@ export default function SideBar(props) {
                 return (
                   <>
                     <label>image url</label>
-                    <input key={elementItem.key} value={elementItem.imageUrl} />
+                    <input
+                      key={elementItem.key}
+                      value={
+                        Object.values(image).length > 0 ? image.imageUrl : ""
+                      }
+                      onClick={() => {
+                        setCurrentElement({
+                          key: elementItem.key,
+                          type: elementItem.type,
+                        });
+                      }}
+                      onChange={(e) => {
+                        if (elementItem.key === currentElement.key) {
+                          const imageData = {
+                            key: elementItem.key,
+                            type: elementItem.type,
+                            origin: elementItem.origin,
+                            originType: elementItem.originType,
+                            imageUrl: e.target.value,
+                          };
+                          setImage(imageData);
+                        }
+                      }}
+                    />
                   </>
                 );
             }

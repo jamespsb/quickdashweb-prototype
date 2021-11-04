@@ -106,6 +106,7 @@ export default function Home() {
 
   // image state
   const [image, setImage] = useState({});
+  console.log(image);
 
   // button state
   const [button, setButton] = useState({});
@@ -158,6 +159,8 @@ export default function Home() {
           return header;
         case "BUTTON":
           return button;
+        case "IMAGE":
+          return image;
       }
     };
 
@@ -197,7 +200,7 @@ export default function Home() {
     if (blockIndex !== -1 && newBlock[blockIndex].key !== undefined) {
       setBlocks(newBlock);
     }
-  }, [header, button]);
+  }, [header, button, image]);
 
   const sidebarProps = {
     sidebarElements,
@@ -207,6 +210,8 @@ export default function Home() {
     setHeader,
     button,
     setButton,
+    image,
+    setImage,
   };
 
   return (
