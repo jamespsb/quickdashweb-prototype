@@ -191,7 +191,7 @@ export default function Home() {
       },
     ];
 
-    // set new block
+    // set new block, added this condition to prevent the infinite loop
     if (blockIndex !== -1 && newBlock[blockIndex].key !== undefined) {
       setBlocks(newBlock);
     }
