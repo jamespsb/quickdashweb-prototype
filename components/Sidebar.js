@@ -157,6 +157,37 @@ export default function SideBar(props) {
                         }
                       }}
                     />
+                    <label>button background color</label>
+                    <input
+                      key={elementItem.key}
+                      value={
+                        Object.values(button).length > 0
+                          ? button.style.backgroundColor
+                          : ""
+                      }
+                      onClick={() => {
+                        setCurrentElement({
+                          key: elementItem.key,
+                          type: elementItem.type,
+                        });
+                      }}
+                      onChange={(e) => {
+                        if (elementItem.key === currentElement.key) {
+                          const buttonData = {
+                            key: elementItem.key,
+                            type: elementItem.type,
+                            origin: elementItem.origin,
+                            originType: elementItem.originType,
+                            buttonName: elementItem.buttonName,
+                            buttonUrl: elementItem.buttonUrl,
+                            style: {
+                              backgroundColor: e.target.value,
+                            },
+                          };
+                          setButton(buttonData);
+                        }
+                      }}
+                    />
                   </>
                 );
               case "IMAGE":

@@ -40,6 +40,9 @@ const headerBlock01Data = [
     originType: "HEADER_BLOCK",
     buttonName: "buy me",
     buttonUrl: "https://www.google.com",
+    style: {
+      backgroundColor: "",
+    },
   },
 ];
 const headerBlock02Data = [
@@ -106,7 +109,6 @@ export default function Home() {
 
   // image state
   const [image, setImage] = useState({});
-  console.log(image);
 
   // button state
   const [button, setButton] = useState({});
