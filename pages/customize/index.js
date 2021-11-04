@@ -163,6 +163,7 @@ export default function Home() {
 
     // get block index
     const blockIndex = blocks.findIndex((x) => x.key === currentBlock.key);
+
     // get element index
     const elementIndex = blocks[blockIndex]
       ? blocks[blockIndex].data.findIndex((x) => x.key === currentElement.key)
@@ -183,6 +184,7 @@ export default function Home() {
     delete dataClone[-1];
 
     // create new block to replace the old block
+    // TODO: test with multiple blocks
     const newBlock = [
       {
         key: currentBlock.key,

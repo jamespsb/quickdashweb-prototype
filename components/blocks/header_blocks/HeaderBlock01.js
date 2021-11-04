@@ -86,7 +86,7 @@ export default function HeaderBlock01(props) {
                         <button
                           className={styles.buttonElement}
                           style={item.style}
-                          onClick={() => alert(item.buttonUrl)}
+                          onClick={() => window.open(item.buttonUrl)}
                         >
                           {item.buttonName}
                         </button>
