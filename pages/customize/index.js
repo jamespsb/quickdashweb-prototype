@@ -150,19 +150,39 @@ export default function Home() {
     });
   }, [sidebarElements]);
 
-  // reflecting changes from individual elements to blocks
+  // reflecting changes from individual elements to updated blocks
   useEffect(() => {
+    const focusedElement = () => {
+      switch (currentElement.type) {
+        case "HEADER":
+          return header;
+        case "BUTTON":
+          return button;
+      }
+    };
+
+    // get block index
     const blockIndex = blocks.findIndex((x) => x.key === currentBlock.key);
-    const itemIndex = blocks[blockIndex]
+    // get element index
+    const elementIndex = blocks[blockIndex]
       ? blocks[blockIndex].data.findIndex((x) => x.key === currentElement.key)
       : null;
 
+    // clone the blocks array
     const blocksClone = [...blocks];
+
+    // return the data (elements) of the cloned array
     const dataClone = blocksClone[blockIndex]
       ? blocksClone[blockIndex].data
       : [];
-    dataClone[itemIndex] = header;
 
+    // replace the old data/object of the element with the updated version
+    dataClone[elementIndex] = focusedElement();
+
+    // delete the replaced index
+    delete dataClone[-1];
+
+    // create new block to replace the old block
     const newBlock = [
       {
         key: currentBlock.key,
@@ -171,8 +191,11 @@ export default function Home() {
       },
     ];
 
-    console.log("new block", newBlock);
-  }, [blocks, header]);
+    // set new block
+    if (blockIndex !== -1 && newBlock[blockIndex].key !== undefined) {
+      setBlocks(newBlock);
+    }
+  }, [header, button]);
 
   const sidebarProps = {
     sidebarElements,
@@ -180,6 +203,8 @@ export default function Home() {
     setCurrentElement,
     header,
     setHeader,
+    button,
+    setButton,
   };
 
   return (

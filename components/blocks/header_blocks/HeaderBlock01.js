@@ -5,7 +5,7 @@ import styles from "../../../styles/header_block_styles/HeaderBlock.module.css";
 import Header from "../../elements/Header";
 
 export default function HeaderBlock01(props) {
-  const { data, setCurrentElement, header } = props;
+  const { data, setCurrentElement } = props;
 
   const imageData = () => {
     let key;
@@ -38,6 +38,7 @@ export default function HeaderBlock01(props) {
                   case "HEADER":
                     return (
                       <div
+                        ket={item.key}
                         onClick={() =>
                           setCurrentElement({
                             key: item.key,
@@ -48,13 +49,14 @@ export default function HeaderBlock01(props) {
                         <Header
                           className={styles.headerElement}
                           style={item.style}
-                          content={header.headerContent}
+                          content={item.headerContent}
                         />
                       </div>
                     );
                   case "SUBHEADER":
                     return (
                       <div
+                        key={item.key}
                         onClick={() =>
                           setCurrentElement({
                             key: item.key,
@@ -73,6 +75,7 @@ export default function HeaderBlock01(props) {
                   case "BUTTON":
                     return (
                       <div
+                        key={item.key}
                         onClick={() =>
                           setCurrentElement({
                             key: item.key,

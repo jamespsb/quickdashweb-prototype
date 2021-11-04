@@ -5,6 +5,8 @@ export default function SideBar(props) {
     setCurrentElement,
     header,
     setHeader,
+    button,
+    setButton,
   } = props;
 
   return (
@@ -68,12 +70,50 @@ export default function SideBar(props) {
                     <label>button name</label>
                     <input
                       key={elementItem.key}
-                      value={elementItem.buttonName}
+                      value={button.buttonName}
+                      onClick={() => {
+                        setCurrentElement({
+                          key: elementItem.key,
+                          type: elementItem.type,
+                        });
+                      }}
+                      onChange={(e) => {
+                        if (elementItem.key === currentElement.key) {
+                          const buttonData = {
+                            key: elementItem.key,
+                            type: elementItem.type,
+                            origin: elementItem.origin,
+                            originType: elementItem.originType,
+                            buttonName: e.target.value,
+                            buttonUrl: elementItem.buttonUrl,
+                          };
+                          setButton(buttonData);
+                        }
+                      }}
                     />
                     <label>button url</label>
                     <input
                       key={elementItem.key}
                       value={elementItem.buttonUrl}
+                      onClick={() => {
+                        setCurrentElement({
+                          key: elementItem.key,
+                          type: elementItem.type,
+                        });
+                      }}
+                      onChange={(e) => {
+                        if (elementItem.key === currentElement.key) {
+                          const buttonData = {
+                            key: elementItem.key,
+                            type: elementItem.type,
+                            origin: elementItem.origin,
+                            originType: elementItem.originType,
+                            buttonName: elementItem.buttonName,
+                            buttonUrl: e.target.value,
+                          };
+                          setButton(buttonData);
+                        }
+                      }}
                     />
                   </>
                 );
