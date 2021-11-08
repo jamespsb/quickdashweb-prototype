@@ -50,7 +50,7 @@ export default function SideBar(props) {
                             origin: elementItem.origin,
                             originType: elementItem.originType,
                             headerContent: e.target.value,
-                            style: elementItem.style,
+                            style: header.style,
                           };
                           setHeader(headerData);
                         }
@@ -77,7 +77,7 @@ export default function SideBar(props) {
                             type: elementItem.type,
                             origin: elementItem.origin,
                             originType: elementItem.originType,
-                            headerContent: elementItem.headerContent,
+                            headerContent: header.headerContent,
                             style: {
                               color: e.target.value,
                             },
@@ -125,7 +125,8 @@ export default function SideBar(props) {
                             origin: elementItem.origin,
                             originType: elementItem.originType,
                             buttonName: e.target.value,
-                            buttonUrl: elementItem.buttonUrl,
+                            buttonUrl: button.buttonUrl,
+                            style: button.style,
                           };
                           setButton(buttonData);
                         }
@@ -150,8 +151,9 @@ export default function SideBar(props) {
                             type: elementItem.type,
                             origin: elementItem.origin,
                             originType: elementItem.originType,
-                            buttonName: elementItem.buttonName,
+                            buttonName: button.buttonName,
                             buttonUrl: e.target.value,
+                            style: button.style,
                           };
                           setButton(buttonData);
                         }
@@ -178,8 +180,8 @@ export default function SideBar(props) {
                             type: elementItem.type,
                             origin: elementItem.origin,
                             originType: elementItem.originType,
-                            buttonName: elementItem.buttonName,
-                            buttonUrl: elementItem.buttonUrl,
+                            buttonName: button.buttonName,
+                            buttonUrl: button.buttonUrl,
                             style: {
                               backgroundColor: e.target.value,
                             },

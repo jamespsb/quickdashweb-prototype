@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../../../styles/header_block_styles/HeaderBlock.module.css";
 
 import Header from "../../elements/Header";
+import Button from "../../elements/Button";
 
 export default function HeaderBlock01(props) {
   const { data, setCurrentElement } = props;
@@ -83,13 +84,12 @@ export default function HeaderBlock01(props) {
                           })
                         }
                       >
-                        <button
+                        <Button
                           className={styles.buttonElement}
                           style={item.style}
-                          onClick={() => window.open(item.buttonUrl)}
-                        >
-                          {item.buttonName}
-                        </button>
+                          buttonName={item.buttonName}
+                          buttonUrl={item.buttonUrl}
+                        />
                       </div>
                     );
                 }

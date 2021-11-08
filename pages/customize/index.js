@@ -7,16 +7,12 @@ const headerBlock01Data = [
   {
     key: "image01",
     type: "IMAGE",
-    origin: "headerBlock01",
-    originType: "HEADER_BLOCK",
     imageUrl:
       "https://images.unsplash.com/photo-1527443195645-1133f7f28990?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80",
   },
   {
     key: "header01",
     type: "HEADER",
-    origin: "headerBlock01",
-    originType: "HEADER_BLOCK",
     headerContent: "welcome to APPLE",
     style: {
       color: "#2F2727",
@@ -25,8 +21,6 @@ const headerBlock01Data = [
   // {
   //   key: "subHeader01",
   //   type: "SUBHEADER",
-  //   origin: "headerBlock01",
-  //   originType: "HEADER_BLOCK",
   //   subheaderContent:
   //     "ullamco nisi aute elit occaecat laboris anim mollit nostrud aute ex laborum eu. Aliquip voluptate nisi dolore ad ipsum veniam dolor.",
   //   style: {
@@ -36,12 +30,10 @@ const headerBlock01Data = [
   {
     key: "button01",
     type: "BUTTON",
-    origin: "headerBlock01",
-    originType: "HEADER_BLOCK",
     buttonName: "buy me",
     buttonUrl: "https://www.google.com",
     style: {
-      backgroundColor: "",
+      backgroundColor: "#CACACA",
     },
   },
 ];
@@ -49,16 +41,12 @@ const headerBlock02Data = [
   {
     key: "image01",
     type: "IMAGE",
-    origin: "headerBlock02",
-    originType: "HEADER_BLOCK",
     imageUrl:
       "https://images.unsplash.com/photo-1527443195645-1133f7f28990?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80",
   },
   {
     key: "header01",
     type: "HEADER",
-    origin: "headerBlock02",
-    originType: "HEADER_BLOCK",
     headerContent: "welcome to APPLE 2",
     style: {
       color: "#2F2727",
@@ -67,8 +55,6 @@ const headerBlock02Data = [
   // {
   //   key: "subHeader01",
   //   type: "SUBHEADER",
-  //   origin: "headerBlock01",
-  //   originType: "HEADER_BLOCK",
   //   subheaderContent:
   //     "ullamco nisi aute elit occaecat laboris anim mollit nostrud aute ex laborum eu. Aliquip voluptate nisi dolore ad ipsum veniam dolor.",
   //   style: {
@@ -78,10 +64,11 @@ const headerBlock02Data = [
   {
     key: "button01",
     type: "BUTTON",
-    origin: "headerBlock02",
-    originType: "HEADER_BLOCK",
     buttonName: "buy me 2",
     buttonUrl: "https://www.google.com",
+    style: {
+      backgroundColor: "#CACACA",
+    },
   },
 ];
 
@@ -91,11 +78,11 @@ const fetchedBlocks = [
     type: "HEADER_BLOCK",
     data: headerBlock01Data,
   },
-  // {
-  //   key: "headerBlock02",
-  //   type: "HEADER_BLOCK",
-  //   data: headerBlock02Data,
-  // },
+  {
+    key: "headerBlock02",
+    type: "HEADER_BLOCK",
+    data: headerBlock02Data,
+  },
 ];
 
 export default function Home() {
@@ -117,15 +104,6 @@ export default function Home() {
   useEffect(() => {
     setBlocks(fetchedBlocks);
   }, []);
-
-  // initial setting current block to first block
-  useEffect(() => {
-    const block = blocks[0];
-
-    if (block !== undefined) {
-      setCurrentBlock({ key: block.key, type: block.type });
-    }
-  }, [blocks]);
 
   // setting sidebar elements when changing current block
   useEffect(() => {
@@ -190,17 +168,18 @@ export default function Home() {
 
     // create new block to replace the old block
     // TODO: test with multiple blocks
-    const newBlock = [
-      {
-        key: currentBlock.key,
-        type: currentBlock.type,
-        data: dataClone,
-      },
-    ];
+    const newBlock = {
+      key: currentBlock.key,
+      type: currentBlock.type,
+      data: dataClone,
+    };
+
+    blocksClone[blockIndex] = newBlock;
+    delete blocksClone[-1];
 
     // set new block, added this condition to prevent the infinite loop
-    if (blockIndex !== -1 && newBlock[blockIndex].key !== undefined) {
-      setBlocks(newBlock);
+    if (blockIndex !== -1 && blocksClone[blockIndex].key !== undefined) {
+      setBlocks((state) => [...state, blocksClone]);
     }
   }, [header, button, image]);
 
@@ -223,7 +202,9 @@ export default function Home() {
         backgroundColor: "#FFFFFF",
       }}
     >
-      <Sidebar {...sidebarProps} />
+      {Object.values(currentBlock).length > 0 ? (
+        <Sidebar {...sidebarProps} />
+      ) : null}
       {blocks !== null
         ? blocks.map((blockItem) => {
             switch (blockItem.type) {
